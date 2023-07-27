@@ -11,3 +11,7 @@ Just put the macros you desire in the Davinci Resolve Macros folder and you are 
 ## Vector
 ![acl_vector example image](https://github.com/aconstlink/DRMacros/blob/main/images/acl_vector.jpg)
 Scaleable vector for Fusion. Nice if you want to represents vectors in you Davinci project.
+
+## Description Box
+![acl_vector example image](https://github.com/aconstlink/DRMacros/blob/main/images/acl_descbox.jpg)
+Animated description box.
