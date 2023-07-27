@@ -5,7 +5,7 @@ The macros are developed under Windows only.
 
 Just put the macros you desire in the Davinci Resolve Macros folder and you are good to go.
 
-C:\Users\YOURACCOUNT\AppData\Roaming\Blackmagic Design\DaVinci Resolve\Support\Fusion\Macros
+`C:\Users\YOURACCOUNT\AppData\Roaming\Blackmagic Design\DaVinci Resolve\Support\Fusion\Macros`
 
 
 ## Vector
