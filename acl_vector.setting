@@ -1,0 +1,347 @@
+{
+	Tools = ordered() {
+		acl_vector = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "Control",
+					Source = "Angle",
+					Default = 0,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Control",
+					Source = "Length",
+					MaxScale = 100,
+					Default = 0.5,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Control",
+					Source = "UniformScale",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Control",
+					Source = "Offset",
+					DefaultX = 0.25,
+					DefaultY = 0,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "Control",
+					Source = "HeadLength",
+					Default = 1,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "Control",
+					Source = "HeadWidth",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "MediaOut1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				TopHeadTranslation = sTransform {
+					NameSet = true,
+					Inputs = {
+						XOffset = Input { Value = 0.044, },
+						YOffset = Input { Value = -0.126, },
+						Input = Input {
+							SourceOp = "TopHeadRotation",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 47.0925, -145.352 } },
+				},
+				TopHeadRotation = sTransform {
+					NameSet = true,
+					Inputs = {
+						XSize = Input {
+							Value = 0.65,
+							Expression = "math.min( math.max( Control.Length, 0.65), 1.0 )*Control.HeadWidth",
+						},
+						YSize = Input {
+							Value = 0.5,
+							Expression = "math.min( math.max( Control.Length, 0.45), 1.0 )*Control.HeadLength",
+						},
+						ZRotation = Input { Value = -135, },
+						XPivot = Input { Value = -0.025, },
+						YPivot = Input { Value = 0.126, },
+						Input = Input {
+							SourceOp = "TopHeadGeometry",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -78.1821, -145.507 } },
+				},
+				BodyGeometry = sRectangle {
+					NameSet = true,
+					Inputs = {
+						JoinStyle = Input { Value = 0, },
+						Height = Input { Value = 0.039, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 94.5311, -248.878 } },
+				},
+				TopHeadGeometry = sRectangle {
+					NameSet = true,
+					Inputs = {
+						Width = Input { Value = 0.05, },
+						Height = Input { Value = 0.252, },
+					},
+					ViewInfo = OperatorInfo { Pos = { -229.133, -145.848 } },
+				},
+				BottomHeadTranslation = sTransform {
+					NameSet = true,
+					Inputs = {
+						XOffset = Input { Value = -0.002, },
+						YOffset = Input { Value = -0.122, },
+						Input = Input {
+							SourceOp = "BottomHeadRotation1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 47.0925, -105.352 } },
+				},
+				BottomHeadRotation1 = sTransform {
+					NameSet = true,
+					Inputs = {
+						XSize = Input { Expression = "math.min( math.max( Control.Length, 0.65), 1.0 )*Control.HeadWidth", },
+						YSize = Input { Expression = "math.min( math.max( Control.Length, 0.45), 1.0 )*Control.HeadLength", },
+						ZRotation = Input { Value = -45, },
+						XPivot = Input { Value = 0.017, },
+						YPivot = Input { Value = 0.126, },
+						Input = Input {
+							SourceOp = "BottomHeadGeometry",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -81.0205, -104.223 } },
+				},
+				sMerge2 = sMerge {
+					Inputs = {
+						Input1 = Input {
+							SourceOp = "BottomHeadTranslation",
+							Source = "Output",
+						},
+						Input3 = Input {
+							SourceOp = "TopHeadTranslation",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 199.795, -145.411 } },
+				},
+				BottomHeadGeometry = sRectangle {
+					NameSet = true,
+					Inputs = {
+						Width = Input { Value = 0.05, },
+						Height = Input { Value = 0.252, },
+					},
+					ViewInfo = OperatorInfo { Pos = { -230.466, -105.848 } },
+				},
+				ArrowBody = Underlay {
+					NameSet = true,
+					ViewInfo = UnderlayInfo {
+						Pos = { 100.933, -298.78 },
+						Size = { 156.224, 86 }
+					},
+					Colors = { TileColor = { R = 0, G = 0.596078431372549, B = 0.6 }, }
+				},
+				LocalHeadTransform = sTransform {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						XOffset = Input { Value = -0.249, },
+						Input = Input {
+							SourceOp = "sMerge2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 317.327, -145.413 } },
+				},
+				sRectangle1_1 = sRectangle {
+					Inputs = {
+						["Translate.X"] = Input { Value = 0.0879186602871, },
+						["Translate.Y"] = Input { Value = 0.0097757373346, },
+						Height = Input { Value = 0.0195, },
+						Red = Input { Value = 0.3176470588235, },
+						Blue = Input { Value = 0, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 312.087, -319.677 } },
+				},
+				sMerge3 = sMerge {
+					PassThrough = true,
+					Inputs = {
+						Input1 = Input {
+							SourceOp = "BodyGeometry",
+							Source = "Output",
+						},
+						Input2 = Input {
+							SourceOp = "sRectangle1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 312.087, -248.719 } },
+				},
+				Control = sMerge {
+					NameSet = true,
+					Inputs = {
+						Input1 = Input {
+							SourceOp = "Internals",
+							Source = "Output",
+						},
+						Offset = Input { Value = { 0.25, 0 }, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 326.737, 15.7794 } },
+					UserControls = ordered() { Angle = { INP_Default = 0, INPID_PreviewControl = "AngleControl", INPID_InputControl = "ScrewControl", LINKID_DataType = "Number", INP_Integer = false, INP_MinScale = -180, INP_MaxScale = 180, LINKS_Name = "Angle", }, Length = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 10, INP_Default = 0.5, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "Length", }, UniformScale = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 2, INP_Default = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "UniformScale", }, Offset = {
+							LINKS_Name = "Offset",
+							LINKID_DataType = "Point",
+							INPID_InputControl = "OffsetControl",
+							INPID_PreviewControl = "CrosshairControl",
+							INP_DefaultX = 0,
+							INP_DefaultY = 0,
+							CHC_Style = "NormalCross",
+						}, HeadLength = {
+							LINKS_Name = "HeadLength",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 1,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 2,
+							INP_MinAllowed = -1000000,
+							INP_MaxAllowed = 1000000,
+						}, HeadWidth = {
+							LINKS_Name = "HeadWidth",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 1,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 2,
+						} }
+				},
+				sRender2 = sRender {
+					Inputs = {
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Input = Input {
+							SourceOp = "Control",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 181.478, 15.471 } },
+				},
+				MediaOut1 = MediaOut {
+					Inputs = {
+						Index = Input { Value = "0", },
+						Input = Input {
+							SourceOp = "sRender2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 21.0862, 16.0507 } },
+				},
+				ArrowHead = Underlay {
+					NameSet = true,
+					ViewInfo = UnderlayInfo {
+						Pos = { 39.7952, -182.87 },
+						Size = { 713.872, 130.907 }
+					},
+					Colors = { TileColor = { R = 0.372549019607843, G = 0.6, B = 0.125490196078431 }, }
+				},
+				DebugAlignment = Underlay {
+					NameSet = true,
+					ViewInfo = UnderlayInfo {
+						Pos = { 312.087, -337.739 },
+						Size = { 172, 138.717 }
+					},
+					Colors = { TileColor = { R = 0.92156862745098, G = 0.431372549019608, B = 0 }, }
+				},
+				sTransform1 = sTransform {
+					Inputs = {
+						XOffset = Input { Expression = "Control.Length*0.5", },
+						Input = Input {
+							SourceOp = "LocalHeadTransform",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 479.47, -145.417 } },
+				},
+				Internals = sMerge {
+					NameSet = true,
+					Inputs = {
+						Input1 = Input {
+							SourceOp = "MainTransform",
+							Source = "Output",
+						},
+						VectorLength = Input {
+							Value = 1,
+							Expression = "Control.Length",
+						}
+					},
+					ViewInfo = OperatorInfo { Pos = { 476.553, 15.8343 } },
+					UserControls = ordered() { VectorLength = { INP_MaxAllowed = 1000000, INP_Integer = false, INP_MinAllowed = -1000000, LINKID_DataType = "Number", INPID_InputControl = "SliderControl", INP_MinScale = 0, INP_MaxScale = 1, LINKS_Name = "VectorLength", } }
+				},
+				sTransform3 = sTransform {
+					Inputs = {
+						XSize = Input { Expression = "Control.Length", },
+						YSize = Input { Expression = "math.min( math.max( Control.Length, 0.65), 1.0 )", },
+						XPivot = Input { Value = -0.25, },
+						Input = Input {
+							SourceOp = "sMerge3",
+							Source = "Output",
+						},
+						A = Input { Value = { 0, 0.5 }, },
+						B = Input { Value = { 1, 0.5 }, },
+						AB = Input {
+							Value = { 1, 0.5 },
+							Expression = "B*Internals.VectorLength+A*(1.0-Internals.VectorLength)",
+						}
+					},
+					ViewInfo = OperatorInfo { Pos = { 485.124, -248.418 } },
+					UserControls = ordered() { A = { INPID_InputControl = "OffsetControl", LINKID_DataType = "Point", LINKS_Name = "A", }, B = { INPID_InputControl = "OffsetControl", LINKID_DataType = "Point", LINKS_Name = "B", }, AB = { INPID_InputControl = "OffsetControl", LINKID_DataType = "Point", LINKS_Name = "AB", } }
+				},
+				sMerge1 = sMerge {
+					Inputs = {
+						Input1 = Input {
+							SourceOp = "sTransform3",
+							Source = "Output",
+						},
+						Input2 = Input {
+							SourceOp = "sTransform1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 618.86, -145.743 } },
+				},
+				MainTransform = sTransform {
+					NameSet = true,
+					Inputs = {
+						XOffset = Input {
+							Value = 0.25,
+							Expression = "Control.Offset.X",
+						},
+						YOffset = Input { Expression = "Control.Offset.Y", },
+						XSize = Input { Expression = "Control.UniformScale", },
+						YSize = Input { Expression = "Control.UniformScale", },
+						ZRotation = Input {
+							Value = 5.2,
+							Expression = "Control.Angle",
+						},
+						XPivot = Input { Value = -0.25, },
+						Input = Input {
+							SourceOp = "sMerge1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 619.436, -88.3165 } },
+				}
+			},
+		}
+	},
+	ActiveTool = "acl_vector"
+}
