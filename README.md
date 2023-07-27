@@ -9,5 +9,5 @@ C:\Users\YOURACCOUNT\AppData\Roaming\Blackmagic Design\DaVinci Resolve\Support\F
 
 
 ## Vector
-![acl_vector example image](https://https://github.com/aconstlink/DRMacros/images/acl_vector.jpg)
+![acl_vector example image](https://github.com/aconstlink/DRMacros/images/acl_vector.jpg)
 Scaleable vector for Fusion. Nice if you want to represents vectors in you Davinci project.
