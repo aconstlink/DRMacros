@@ -13,9 +13,13 @@ Just put the macros you desire in the Davinci Resolve Macros folder and you are 
 Scaleable vector for Fusion. Nice if you want to represents vectors in you Davinci project.
 
 ## Description Box
-![acl_vector example image](https://github.com/aconstlink/DRMacros/blob/main/images/acl_descbox.jpg)
+![acl_descbox example image](https://github.com/aconstlink/DRMacros/blob/main/images/acl_descbox.jpg)
 Animated description box.
 
 ## Description Box 2
-![acl_vector example image](https://github.com/aconstlink/DRMacros/blob/main/images/acl_descbox2.jpg)
+![acl_descbox2 example image](https://github.com/aconstlink/DRMacros/blob/main/images/acl_descbox2.jpg)
 Another description box with slightly tilted sides which allows for a different description look than box 1.
+
+## Unit Scale
+![acl_unit_scale example image](https://github.com/aconstlink/DRMacros/blob/main/images/acl_unit_scale.jpg)
+A tool for displaying a unit scale for measurment of things.

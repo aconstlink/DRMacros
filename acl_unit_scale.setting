@@ -1,0 +1,154 @@
+{
+	Tools = ordered() {
+		acl_unit_scale = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "acl_unit_scale_control",
+					Source = "UniformScale",
+					Default = 0.5,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "acl_unit_scale_control",
+					Source = "Length",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "acl_unit_scale_control",
+					Source = "Height",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "acl_unit_scale_control",
+					Source = "Width",
+					MaxScale = 0.2000000029802,
+					Default = 0.0439999997615814,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "acl_media_out",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				acl_right_bar = sRectangle {
+					NameSet = true,
+					Inputs = {
+						["Translate.X"] = Input {
+							Value = 0.435,
+							Expression = "acl_unit_scale_control.Length*0.5",
+						},
+						Width = Input {
+							Value = 0.0283,
+							Expression = "acl_unit_scale_control.Width",
+						},
+						Height = Input {
+							Value = 0.2285,
+							Expression = "math.max(acl_unit_scale_control.Height*0.5, acl_unit_scale_control.Width)",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -170.667, -53.2425 } },
+				},
+				acl_center_bar = sRectangle {
+					NameSet = true,
+					Inputs = {
+						Width = Input {
+							Value = 0.87,
+							Expression = "acl_unit_scale_control.Length",
+						},
+						Height = Input {
+							Value = 0.0283,
+							Expression = "acl_unit_scale_control.Width",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -172, -17.4849 } },
+				},
+				acl_transform = sTransform {
+					NameSet = true,
+					Inputs = {
+						XSize = Input {
+							Value = 0.929,
+							Expression = "acl_unit_scale_control.UniformScale",
+						},
+						YSize = Input {
+							Value = 0.929,
+							Expression = "acl_unit_scale_control.UniformScale",
+						},
+						Input = Input {
+							SourceOp = "acl_unit_scale_control",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 84.0002, 19.4847 } },
+				},
+				acl_unit_scale_control = sMerge {
+					NameSet = true,
+					Inputs = {
+						Input1 = Input {
+							SourceOp = "acl_left_bar",
+							Source = "Output",
+						},
+						Input2 = Input {
+							SourceOp = "acl_center_bar",
+							Source = "Output",
+						},
+						Input3 = Input {
+							SourceOp = "acl_right_bar",
+							Source = "Output",
+						},
+						UniformScale = Input { Value = 0.5, },
+						Width = Input { Value = 0.044, }
+					},
+					ViewInfo = OperatorInfo { Pos = { -31.3333, 19.4848 } },
+					UserControls = ordered() { UniformScale = { INP_Integer = false, INP_Default = 1, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 1, LINKS_Name = "UniformScale", }, Length = { INP_Integer = false, INP_Default = 1, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 10, LINKS_Name = "Length", }, Height = { INP_Integer = false, INP_Default = 1, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 1, LINKS_Name = "Height", }, Width = { INP_Integer = false, INP_Default = 0.0439999997615814, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 0.200000002980232, LINKS_Name = "Width", } }
+				},
+				acl_left_bar = sRectangle {
+					NameSet = true,
+					Inputs = {
+						["Translate.X"] = Input {
+							Value = -0.435,
+							Expression = "-acl_unit_scale_control.Length*0.5",
+						},
+						Width = Input {
+							Value = 0.0283,
+							Expression = "acl_unit_scale_control.Width",
+						},
+						Height = Input {
+							Value = 0.2285,
+							Expression = "math.max(acl_unit_scale_control.Height*0.5, acl_unit_scale_control.Width)",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -169.333, 19.4848 } },
+				},
+				acl_render = sRender {
+					NameSet = true,
+					Inputs = {
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Input = Input {
+							SourceOp = "acl_transform",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 203.333, 20.0909 } },
+				},
+				acl_media_out = MediaOut {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Index = Input { Value = "0", },
+						Input = Input {
+							SourceOp = "acl_render",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 330.666, 19.803 } },
+				}
+			},
+		}
+	},
+	ActiveTool = "acl_unit_scale"
+}
