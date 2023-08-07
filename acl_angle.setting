@@ -1,0 +1,145 @@
+{
+	Tools = ordered() {
+		acl_angle = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "acl_angle_control",
+					Source = "full_angle",
+					Default = 90,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "acl_angle_control",
+					Source = "angle_begin",
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "acl_angle_media_out",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				acl_ellipse = sEllipse {
+					NameSet = true,
+					Inputs = {
+						Width = Input { Value = 0.1, },
+						Height = Input { Value = 0.1, },
+					},
+					ViewInfo = OperatorInfo { Pos = { -849.057, -11.1732 } },
+				},
+				acl_outline_render = sRender {
+					NameSet = true,
+					Inputs = {
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Input = Input {
+							SourceOp = "acl_outline_transform",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -610.667, 30.5196 } },
+				},
+				acl_outline_transform = sTransform {
+					NameSet = true,
+					Inputs = {
+						XOffset = Input { Value = -0.001, },
+						YOffset = Input { Value = -0.002, },
+						XSize = Input { Value = 0.95, },
+						YSize = Input { Value = 0.95, },
+						Input = Input {
+							SourceOp = "acl_angle_outline",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -729.057, 31.251 } },
+				},
+				acl_angle_outline = sOutline {
+					NameSet = true,
+					Inputs = {
+						Thickness = Input { Value = 0.1, },
+						MiterLimit = Input { Value = 5.9, },
+						CapStyle = Input { Value = 0, },
+						WritePosition = Input { Expression = "acl_angle_control.angle_begin", },
+						WriteLength = Input {
+							Value = 0,
+							Expression = "acl_angle_control.full_angle/360",
+						},
+						Input = Input {
+							SourceOp = "acl_ellipse",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -849.057, 30.0086 } },
+				},
+				acl_angle_control = Merge {
+					NameSet = true,
+					Inputs = {
+						Background = Input {
+							SourceOp = "acl_outline_render",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, },
+						full_angle = Input { Value = 90, },
+					},
+					ViewInfo = OperatorInfo { Pos = { -445.901, 31.1048 } },
+					UserControls = ordered() {
+						full_angle = {
+							LINKS_Name = "full_angle",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "ScrewControl",
+							INP_Default = 0,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 360,
+						},
+						angle_begin = {
+							LINKS_Name = "angle_begin",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0,
+							INP_Integer = false,
+						}
+					}
+				},
+				acl_angle_kfs = KeyStretcher {
+					NameSet = true,
+					Inputs = {
+						Keyframes = Input {
+							SourceOp = "acl_angle_control",
+							Source = "Output",
+						},
+						SourceEnd = Input { Value = 105, },
+						StretchStart = Input { Value = 5, },
+						StretchEnd = Input { Value = 100, },
+					},
+					ViewInfo = OperatorInfo { Pos = { -317.807, 31.1037 } },
+				},
+				acl_background = Underlay {
+					NameSet = true,
+					ViewInfo = UnderlayInfo {
+						Pos = { -723.397, -54.4546 },
+						Size = { 415.32, 145.939 }
+					},
+					Colors = { TileColor = { R = 0.266666666666667, G = 0.56078431372549, B = 0.396078431372549 }, }
+				},
+				acl_angle_media_out = MediaOut {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Index = Input { Value = "0", },
+						Input = Input {
+							SourceOp = "acl_angle_kfs",
+							Source = "Result",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -210.473, 30.8161 } },
+				}
+			},
+		}
+	},
+	ActiveTool = "acl_angle"
+}
