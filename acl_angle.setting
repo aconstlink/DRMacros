@@ -34,20 +34,20 @@
 						Width = Input { Value = 0.1, },
 						Height = Input { Value = 0.1, },
 					},
-					ViewInfo = OperatorInfo { Pos = { -848.114, -11.1732 } },
+					ViewInfo = OperatorInfo { Pos = { -842.781, -11.1732 } },
 				},
 				acl_angle_outline = sOutline {
 					NameSet = true,
 					Inputs = {
 						Thickness = Input {
-							Value = 0.1,
+							Value = 0.100000001490116,
 							Expression = "acl_controller.thickness",
 						},
 						MiterLimit = Input { Value = 5.9, },
 						CapStyle = Input { Value = 0, },
 						WritePosition = Input { Expression = "acl_controller.angle_begin", },
 						WriteLength = Input {
-							Value = 0.293888888888889,
+							Value = 0.214166666666667,
 							Expression = "acl_controller.full_angle/360",
 						},
 						Input = Input {
@@ -55,21 +55,7 @@
 							Source = "Output",
 						},
 					},
-					ViewInfo = OperatorInfo { Pos = { -849.057, 30.8657 } },
-				},
-				acl_outline_render = sRender {
-					NameSet = true,
-					Inputs = {
-						Width = Input { Value = 1920, },
-						Height = Input { Value = 1080, },
-						UseFrameFormatSettings = Input { Value = 1, },
-						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
-						Input = Input {
-							SourceOp = "acl_outline_transform",
-							Source = "Output",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { -610.667, 30.5196 } },
+					ViewInfo = OperatorInfo { Pos = { -843.724, 30.8657 } },
 				},
 				acl_outline_transform = sTransform {
 					NameSet = true,
@@ -83,10 +69,32 @@
 							Source = "Output",
 						},
 					},
-					ViewInfo = OperatorInfo { Pos = { -729.057, 31.251 } },
+					ViewInfo = OperatorInfo { Pos = { -723.724, 31.251 } },
+				},
+				acl_outline_render = sRender {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Input = Input {
+							SourceOp = "acl_outline_transform",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -605.334, 30.5196 } },
+				},
+				acl_background = Underlay {
+					NameSet = true,
+					ViewInfo = UnderlayInfo {
+						Pos = { -718.064, -54.4546 },
+						Size = { 415.32, 145.939 }
+					},
+					Colors = { TileColor = { R = 0.266666666666667, G = 0.56078431372549, B = 0.396078431372549 }, }
 				},
 				acl_controller = Merge {
-					CtrlWZoom = false,
 					NameSet = true,
 					Inputs = {
 						Background = Input {
@@ -96,48 +104,19 @@
 						PerformDepthMerge = Input { Value = 0, },
 						full_angle = Input { Value = 77.1, },
 					},
-					ViewInfo = OperatorInfo { Pos = { -444.958, 31.1048 } },
-					UserControls = ordered() { full_angle = { INP_Integer = false, INP_Default = 0, INPID_InputControl = "ScrewControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 360, LINKS_Name = "full_angle", }, angle_begin = { INP_Integer = false, LINKID_DataType = "Number", INP_Default = 0, INPID_InputControl = "SliderControl", LINKS_Name = "angle_begin", }, thickness = {
-							LINKS_Name = "thickness",
-							LINKID_DataType = "Number",
-							INPID_InputControl = "SliderControl",
-							INP_Default = 0.100000001490116,
-							INP_Integer = false,
-							INP_MinScale = 0,
-							INP_MaxScale = 1,
-						} }
-				},
-				acl_background = Underlay {
-					NameSet = true,
-					ViewInfo = UnderlayInfo {
-						Pos = { -723.397, -54.4546 },
-						Size = { 415.32, 145.939 }
-					},
-					Colors = { TileColor = { R = 0.266666666666667, G = 0.56078431372549, B = 0.396078431372549 }, }
-				},
-				acl_angle_kfs = KeyStretcher {
-					NameSet = true,
-					Inputs = {
-						Keyframes = Input {
-							SourceOp = "acl_controller",
-							Source = "Output",
-						},
-						SourceEnd = Input { Value = 105, },
-						StretchStart = Input { Value = 5, },
-						StretchEnd = Input { Value = 100, },
-					},
-					ViewInfo = OperatorInfo { Pos = { -317.807, 31.1037 } },
+					ViewInfo = OperatorInfo { Pos = { -443.625, 29.8927 } },
+					UserControls = ordered() { full_angle = { INP_Integer = false, LINKS_Name = "full_angle", INPID_InputControl = "ScrewControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 360, INP_Default = 0, }, angle_begin = { INP_Integer = false, LINKID_DataType = "Number", LINKS_Name = "angle_begin", INPID_InputControl = "SliderControl", INP_Default = 0, }, thickness = { INP_Integer = false, INPID_InputControl = "SliderControl", LINKID_DataType = "Number", INP_MinScale = 0, INP_Default = 0.100000001490116, INP_MaxScale = 1, LINKS_Name = "thickness", } }
 				},
 				acl_angle_media_out = MediaOut {
 					NameSet = true,
 					Inputs = {
 						Index = Input { Value = "0", },
 						Input = Input {
-							SourceOp = "acl_angle_kfs",
-							Source = "Result",
+							SourceOp = "acl_controller",
+							Source = "Output",
 						},
 					},
-					ViewInfo = OperatorInfo { Pos = { -210.473, 30.8161 } },
+					ViewInfo = OperatorInfo { Pos = { -301.14, 30.8161 } },
 				}
 			},
 		}
