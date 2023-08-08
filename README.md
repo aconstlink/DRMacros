@@ -1,7 +1,7 @@
 # DRMacros
 This repository contains all my Davinci Resolve Studio 18.5 macros. Hopefully it is of some use to someone else.
 
-The macros are developed under Windows only. 
+The macros are developed under Windows only, usually 4k and animations are done due to 24 FPS.
 
 Just put the macros you desire in the Davinci Resolve Macros folder and you are good to go.
 

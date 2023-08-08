@@ -38,42 +38,6 @@
 			},
 			ViewInfo = GroupInfo { Pos = { 0, 0 } },
 			Tools = ordered() {
-				acl_caption_mask = RectangleMask {
-					NameSet = true,
-					Inputs = {
-						Filter = Input { Value = FuID { "Fast Gaussian" }, },
-						MaskWidth = Input { Value = 1920, },
-						MaskHeight = Input { Value = 1080, },
-						PixelAspect = Input { Value = { 1, 1 }, },
-						UseFrameFormatSettings = Input { Value = 1, },
-						ClippingMode = Input { Value = FuID { "None" }, },
-						Center = Input {
-							Value = { 0.608867234, 0.356799532 },
-							Expression = "acl_text_variables.TextMaskPos",
-						},
-						Width = Input {
-							Value = 0.1191233818,
-							Expression = "acl_text_variables.TextMaskWidth*acl_control.UniformScale*acl_control.BoxDims.X",
-						},
-						Height = Input {
-							Value = 0.393324,
-							Expression = "acl_text_variables.TextMaskHeight*acl_control.UniformScale*acl_control.BoxDims.Y",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { -224.11, -5.09036 } },
-				},
-				acl_mask_merge = Merge {
-					NameSet = true,
-					Inputs = {
-						Background = Input {
-							SourceOp = "acl_Caption",
-							Source = "Output",
-						},
-						Operator = Input { Value = FuID { "Mask" }, },
-						PerformDepthMerge = Input { Value = 0, },
-					},
-					ViewInfo = OperatorInfo { Pos = { -226.946, 42.4501 } },
-				},
 				acl_full_background = Background {
 					NameSet = true,
 					Inputs = {
@@ -83,7 +47,19 @@
 						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
 						TopLeftAlpha = Input { Value = 0, },
 					},
-					ViewInfo = OperatorInfo { Pos = { -15.0177, 24.9388 } },
+					ViewInfo = OperatorInfo { Pos = { -30.5602, 36.0202 } },
+				},
+				acl_red_rect_transform = Transform {
+					NameSet = true,
+					Inputs = {
+						Center = Input { Expression = "Point(acl_box_variables.box_offset.X*acl_box_variables.DisplaceZeroOne+0.5, -acl_box_variables.box_offset.Y*acl_box_variables.DisplaceZeroOne+0.5)", },
+						Size = Input { Value = 2, },
+						Input = Input {
+							SourceOp = "acl_red_rect_color",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 135.631, -134.666 } },
 				},
 				acl_Caption = TextPlus {
 					NameSet = true,
@@ -111,19 +87,7 @@
 						HorizontalLeftCenterRight = Input { Value = -1, },
 						HorizontalJustificationNew = Input { Value = 3, },
 					},
-					ViewInfo = OperatorInfo { Pos = { -359.381, 41.866 } },
-				},
-				acl_red_rect_transform = Transform {
-					NameSet = true,
-					Inputs = {
-						Center = Input { Expression = "Point(acl_box_variables.box_offset.X*acl_box_variables.DisplaceZeroOne+0.5, -acl_box_variables.box_offset.Y*acl_box_variables.DisplaceZeroOne+0.5)", },
-						Size = Input { Value = 2, },
-						Input = Input {
-							SourceOp = "acl_red_rect_color",
-							Source = "Output",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { 135.631, -134.666 } },
+					ViewInfo = OperatorInfo { Pos = { -227.388, 41.866 } },
 				},
 				acl_text_and_mask_transform = Transform {
 					NameSet = true,
@@ -133,7 +97,7 @@
 							Expression = "acl_text_variables.TextPos",
 						},
 						Input = Input {
-							SourceOp = "acl_mask_merge",
+							SourceOp = "acl_Caption",
 							Source = "Output",
 						},
 					},
@@ -154,26 +118,10 @@
 					},
 					ViewInfo = OperatorInfo { Pos = { 135.631, -180.372 } },
 				},
-				acl_yellow_rect_transform = Transform {
-					NameSet = true,
-					Inputs = {
-						Center = Input { Expression = "Point( -acl_box_variables.box_offset.X*acl_box_variables.DisplaceZeroOne+0.5, acl_box_variables.box_offset.Y*acl_box_variables.DisplaceZeroOne+0.5)", },
-						Size = Input { Value = 2, },
-						Input = Input {
-							SourceOp = "acl_yellow_rect_color",
-							Source = "Output",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { 241.226, -132.952 } },
-				},
 				acl_box_variables = MultiMerge {
 					NameSet = true,
 					Inputs = {
-						LayerOrder = Input { Value = ScriptVal { {
-									[0] = 2,
-									3,
-									5
-								} }, },
+						LayerOrder = Input { Value = ScriptVal { { [0] = 2, 3, 5 } }, },
 						Background = Input {
 							SourceOp = "acl_rect_background",
 							Source = "Output",
@@ -200,21 +148,7 @@
 						box_offset = Input { Value = { 0.048425, 0.078745 }, },
 					},
 					ViewInfo = OperatorInfo { Pos = { 237.731, -27.6761 } },
-					UserControls = ordered() {
-						DisplaceZeroOne = {
-							LINKS_Name = "DisplaceZeroOne",
-							LINKID_DataType = "Number",
-							INPID_InputControl = "SliderControl",
-							INP_Integer = false,
-						},
-						box_offset = {
-							LINKS_Name = "box_offset",
-							LINKID_DataType = "Point",
-							INPID_InputControl = "OffsetControl",
-							INP_DefaultX = 0,
-							INP_DefaultY = 0,
-						}
-					}
+					UserControls = ordered() { DisplaceZeroOne = { LINKS_Name = "DisplaceZeroOne", INP_Integer = false, LINKID_DataType = "Number", INPID_InputControl = "SliderControl", }, box_offset = { INP_DefaultX = 0, INP_DefaultY = 0, LINKID_DataType = "Point", INPID_InputControl = "OffsetControl", LINKS_Name = "box_offset", } }
 				},
 				acl_box_variablesDisplaceZeroOne = BezierSpline {
 					SplineColor = { Red = 50, Green = 236, Blue = 33 },
@@ -225,34 +159,6 @@
 						[40] = { 1, LH = { 30, 1 }, RH = { 41.3333333333333, 0.666666666666667 }, Flags = { Linear = true } },
 						[44] = { 0, LH = { 42.6666666666667, 0.333333333333333 }, Flags = { Linear = true } }
 					}
-				},
-				acl_rect_transform = Transform {
-					NameSet = true,
-					Inputs = {
-						UseSizeAndAspect = Input { Value = 0, },
-						XSize = Input { Expression = "acl_control.UniformScale*acl_control.BoxDims.X", },
-						YSize = Input { Expression = "acl_control.UniformScale*acl_control.BoxDims.Y", },
-						Input = Input {
-							SourceOp = "acl_box_variables",
-							Source = "Output",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { 210.314, 22.3674 } },
-				},
-				acl_yellow_rect_color = Background {
-					NameSet = true,
-					Inputs = {
-						EffectMask = Input {
-							SourceOp = "acl_rect",
-							Source = "Mask",
-						},
-						Width = Input { Value = 378, },
-						Height = Input { Value = 378, },
-						TopLeftRed = Input { Value = 0.956862745098, },
-						TopLeftGreen = Input { Value = 0.9019607843137, },
-						TopLeftBlue = Input { Value = 0.5019607843137, },
-					},
-					ViewInfo = OperatorInfo { Pos = { 242.452, -180.625 } },
 				},
 				acl_rotation = Transform {
 					NameSet = true,
@@ -273,25 +179,89 @@
 					NameSet = true,
 					Inputs = {
 						LayerOrder = Input { Value = ScriptVal { {
-									[0] = 2,
-									1
+									[0] = 3,
+									2
 								} }, },
 						Background = Input {
 							SourceOp = "acl_full_background",
 							Source = "Output",
 						},
-						["Layer1.Foreground"] = Input {
-							SourceOp = "acl_rect_transform",
-							Source = "Output",
-						},
-						LayerName1 = Input { Value = "acl_rect_transform Layer", },
 						["Layer2.Foreground"] = Input {
 							SourceOp = "acl_text_variables",
 							Source = "Output",
 						},
 						LayerName2 = Input { Value = "acl_text_variables Layer", },
+						["Layer3.Foreground"] = Input {
+							SourceOp = "acl_rect_transform",
+							Source = "Output",
+						},
+						LayerName3 = Input { Value = "acl_rect_transform Layer", },
 					},
 					ViewInfo = OperatorInfo { Pos = { 89.6341, 143.218 } },
+				},
+				acl_rect_transform = Transform {
+					NameSet = true,
+					Inputs = {
+						UseSizeAndAspect = Input { Value = 0, },
+						XSize = Input { Expression = "acl_control.UniformScale*acl_control.BoxDims.X", },
+						YSize = Input { Expression = "acl_control.UniformScale*acl_control.BoxDims.Y", },
+						Input = Input {
+							SourceOp = "acl_box_variables",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 215.647, 27.2159 } },
+				},
+				acl_keyframestretcher = KeyStretcher {
+					NameSet = true,
+					Inputs = {
+						Keyframes = Input {
+							SourceOp = "acl_global_variables",
+							Source = "Output",
+						},
+						SourceEnd = Input { Value = 50, },
+						StretchStart = Input { Value = 14, },
+						StretchEnd = Input { Value = 34, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 262.186, 203.071 } },
+				},
+				acl_media_out = MediaOut {
+					NameSet = true,
+					Inputs = {
+						Index = Input { Value = "0", },
+						Input = Input {
+							SourceOp = "acl_keyframestretcher",
+							Source = "Result",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 128.143, 203.08 } },
+				},
+				acl_yellow_rect_transform = Transform {
+					NameSet = true,
+					Inputs = {
+						Center = Input { Expression = "Point( -acl_box_variables.box_offset.X*acl_box_variables.DisplaceZeroOne+0.5, acl_box_variables.box_offset.Y*acl_box_variables.DisplaceZeroOne+0.5)", },
+						Size = Input { Value = 2, },
+						Input = Input {
+							SourceOp = "acl_yellow_rect_color",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 241.226, -132.952 } },
+				},
+				acl_yellow_rect_color = Background {
+					NameSet = true,
+					Inputs = {
+						EffectMask = Input {
+							SourceOp = "acl_rect",
+							Source = "Mask",
+						},
+						Width = Input { Value = 378, },
+						Height = Input { Value = 378, },
+						TopLeftRed = Input { Value = 0.956862745098, },
+						TopLeftGreen = Input { Value = 0.9019607843137, },
+						TopLeftBlue = Input { Value = 0.5019607843137, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 242.452, -180.625 } },
 				},
 				acl_text_variables = Merge {
 					NameSet = true,
@@ -336,6 +306,7 @@
 				acl_rect = PolylineMask {
 					DrawMode = "ModifyOnly",
 					DrawMode2 = "InsertAndModify",
+					CtrlWZoom = false,
 					NameSet = true,
 					Inputs = {
 						MiterLimit = Input { Value = 4, },
@@ -362,16 +333,13 @@
 					},
 					ViewInfo = OperatorInfo { Pos = { 242.026, -211.519 } },
 				},
-				acl_white_rect_transform = Transform {
+				TextSection = Underlay {
 					NameSet = true,
-					Inputs = {
-						Size = Input { Value = 2, },
-						Input = Input {
-							SourceOp = "acl_white_rect_color",
-							Source = "Output",
-						},
+					ViewInfo = UnderlayInfo {
+						Pos = { -221.011, -3.34805 },
+						Size = { 179.145, 203.571 }
 					},
-					ViewInfo = OperatorInfo { Pos = { 344.97, -131.112 } },
+					Colors = { TileColor = { R = 0.623529411764706, G = 0.776470588235294, B = 0.0823529411764706 }, }
 				},
 				acl_white_rect_color = Background {
 					NameSet = true,
@@ -398,6 +366,17 @@
 					},
 					ViewInfo = OperatorInfo { Pos = { 367.696, -27.5291 } },
 				},
+				acl_white_rect_transform = Transform {
+					NameSet = true,
+					Inputs = {
+						Size = Input { Value = 2, },
+						Input = Input {
+							SourceOp = "acl_white_rect_color",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 344.97, -131.112 } },
+				},
 				acl_control = Merge {
 					NameSet = true,
 					Inputs = {
@@ -415,21 +394,7 @@
 					ViewInfo = OperatorInfo { Pos = { 400.988, 143.235 } },
 					UserControls = ordered() { UniformScale = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 2, INP_Default = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "UniformScale", }, Rotation = { INP_Default = 0, INPID_PreviewControl = "AngleControl", INPID_InputControl = "SliderControl", LINKID_DataType = "Number", INP_Integer = false, INP_MinScale = 0, INP_MaxScale = 360, LINKS_Name = "Rotation", }, BoxDims = { INP_DefaultX = 1, INP_DefaultY = 1, LINKID_DataType = "Point", INPID_InputControl = "OffsetControl", LINKS_Name = "BoxDims", }, TextSize = { INP_Integer = false, LINKS_Name = "TextSize", INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 1, INP_Default = 0.0500000007450581, }, Text = { TEC_ReadOnly = false, LINKID_DataType = "Text", LINKS_Name = "Text", INPID_InputControl = "TextEditControl", TEC_Wrap = false, } }
 				},
-				acl_keyframestretcher = KeyStretcher {
-					NameSet = true,
-					Inputs = {
-						Keyframes = Input {
-							SourceOp = "acl_global_variables",
-							Source = "Output",
-						},
-						SourceEnd = Input { Value = 50, },
-						StretchStart = Input { Value = 14, },
-						StretchEnd = Input { Value = 34, },
-					},
-					ViewInfo = OperatorInfo { Pos = { 262.186, 203.071 } },
-				},
 				acl_global_variables = Merge {
-					CtrlWZoom = false,
 					NameSet = true,
 					Inputs = {
 						Background = Input {
@@ -447,7 +412,7 @@
 						},
 						Rotation = Input { Expression = "RotationZeroOne*360+acl_control.Rotation", },
 					},
-					ViewInfo = OperatorInfo { Pos = { 400.223, 203.071 } },
+					ViewInfo = OperatorInfo { Pos = { 401.556, 203.071 } },
 					UserControls = ordered() { ScaleZeroOne = { INP_Integer = false, INP_Default = 1, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 1.5, LINKS_Name = "ScaleZeroOne", }, RotationZeroOne = { INP_Integer = false, INP_Default = 1, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 1.5, LINKS_Name = "RotationZeroOne", }, Rotation = { INP_MaxAllowed = 1000000, INP_Integer = false, INP_MinAllowed = -1000000, LINKID_DataType = "Number", INPID_InputControl = "SliderControl", INP_MinScale = 0, INP_MaxScale = 360, LINKS_Name = "Rotation", } }
 				},
 				acl_global_variablesScaleZeroOne = BezierSpline {
@@ -470,30 +435,11 @@
 						[50] = { 0, LH = { 48, 0 } }
 					}
 				},
-				acl_media_out = MediaOut {
-					NameSet = true,
-					Inputs = {
-						Index = Input { Value = "0", },
-						Input = Input {
-							SourceOp = "acl_keyframestretcher",
-							Source = "Result",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { 128.143, 203.08 } },
-				},
-				TextSection = Underlay {
-					NameSet = true,
-					ViewInfo = UnderlayInfo {
-						Pos = { -283.236, -35.9178 },
-						Size = { 303.596, 236.141 }
-					},
-					Colors = { TileColor = { R = 0.623529411764706, G = 0.776470588235294, B = 0.0823529411764706 }, }
-				},
 				Boxes = Underlay {
 					NameSet = true,
 					ViewInfo = UnderlayInfo {
-						Pos = { 246.411, -232.326 },
-						Size = { 393.56, 304.39 }
+						Pos = { 246.411, -238.387 },
+						Size = { 393.56, 310.451 }
 					},
 					Colors = { TileColor = { R = 0.92156862745098, G = 0.431372549019608, B = 0 }, }
 				}
