@@ -3,14 +3,19 @@
 		acl_angle = MacroOperator {
 			Inputs = ordered() {
 				Input1 = InstanceInput {
-					SourceOp = "acl_angle_control",
+					SourceOp = "acl_controller",
 					Source = "full_angle",
-					Default = 90,
+					Default = 77.1,
 				},
 				Input2 = InstanceInput {
-					SourceOp = "acl_angle_control",
+					SourceOp = "acl_controller",
 					Source = "angle_begin",
 					Default = 0,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "acl_controller",
+					Source = "thickness",
+					Default = 0.100000001490116,
 				},
 			},
 			Outputs = {
@@ -24,10 +29,33 @@
 				acl_ellipse = sEllipse {
 					NameSet = true,
 					Inputs = {
+						WritePosition = Input { Value = 0.315, },
+						WriteLength = Input { Value = 0.6, },
 						Width = Input { Value = 0.1, },
 						Height = Input { Value = 0.1, },
 					},
-					ViewInfo = OperatorInfo { Pos = { -849.057, -11.1732 } },
+					ViewInfo = OperatorInfo { Pos = { -848.114, -11.1732 } },
+				},
+				acl_angle_outline = sOutline {
+					NameSet = true,
+					Inputs = {
+						Thickness = Input {
+							Value = 0.1,
+							Expression = "acl_controller.thickness",
+						},
+						MiterLimit = Input { Value = 5.9, },
+						CapStyle = Input { Value = 0, },
+						WritePosition = Input { Expression = "acl_controller.angle_begin", },
+						WriteLength = Input {
+							Value = 0.293888888888889,
+							Expression = "acl_controller.full_angle/360",
+						},
+						Input = Input {
+							SourceOp = "acl_ellipse",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -849.057, 30.8657 } },
 				},
 				acl_outline_render = sRender {
 					NameSet = true,
@@ -57,25 +85,8 @@
 					},
 					ViewInfo = OperatorInfo { Pos = { -729.057, 31.251 } },
 				},
-				acl_angle_outline = sOutline {
-					NameSet = true,
-					Inputs = {
-						Thickness = Input { Value = 0.1, },
-						MiterLimit = Input { Value = 5.9, },
-						CapStyle = Input { Value = 0, },
-						WritePosition = Input { Expression = "acl_angle_control.angle_begin", },
-						WriteLength = Input {
-							Value = 0,
-							Expression = "acl_angle_control.full_angle/360",
-						},
-						Input = Input {
-							SourceOp = "acl_ellipse",
-							Source = "Output",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { -849.057, 30.0086 } },
-				},
-				acl_angle_control = Merge {
+				acl_controller = Merge {
+					CtrlWZoom = false,
 					NameSet = true,
 					Inputs = {
 						Background = Input {
@@ -83,40 +94,18 @@
 							Source = "Output",
 						},
 						PerformDepthMerge = Input { Value = 0, },
-						full_angle = Input { Value = 90, },
+						full_angle = Input { Value = 77.1, },
 					},
-					ViewInfo = OperatorInfo { Pos = { -445.901, 31.1048 } },
-					UserControls = ordered() {
-						full_angle = {
-							LINKS_Name = "full_angle",
-							LINKID_DataType = "Number",
-							INPID_InputControl = "ScrewControl",
-							INP_Default = 0,
-							INP_Integer = false,
-							INP_MinScale = 0,
-							INP_MaxScale = 360,
-						},
-						angle_begin = {
-							LINKS_Name = "angle_begin",
+					ViewInfo = OperatorInfo { Pos = { -444.958, 31.1048 } },
+					UserControls = ordered() { full_angle = { INP_Integer = false, INP_Default = 0, INPID_InputControl = "ScrewControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 360, LINKS_Name = "full_angle", }, angle_begin = { INP_Integer = false, LINKID_DataType = "Number", INP_Default = 0, INPID_InputControl = "SliderControl", LINKS_Name = "angle_begin", }, thickness = {
+							LINKS_Name = "thickness",
 							LINKID_DataType = "Number",
 							INPID_InputControl = "SliderControl",
-							INP_Default = 0,
+							INP_Default = 0.100000001490116,
 							INP_Integer = false,
-						}
-					}
-				},
-				acl_angle_kfs = KeyStretcher {
-					NameSet = true,
-					Inputs = {
-						Keyframes = Input {
-							SourceOp = "acl_angle_control",
-							Source = "Output",
-						},
-						SourceEnd = Input { Value = 105, },
-						StretchStart = Input { Value = 5, },
-						StretchEnd = Input { Value = 100, },
-					},
-					ViewInfo = OperatorInfo { Pos = { -317.807, 31.1037 } },
+							INP_MinScale = 0,
+							INP_MaxScale = 1,
+						} }
 				},
 				acl_background = Underlay {
 					NameSet = true,
@@ -126,8 +115,20 @@
 					},
 					Colors = { TileColor = { R = 0.266666666666667, G = 0.56078431372549, B = 0.396078431372549 }, }
 				},
+				acl_angle_kfs = KeyStretcher {
+					NameSet = true,
+					Inputs = {
+						Keyframes = Input {
+							SourceOp = "acl_controller",
+							Source = "Output",
+						},
+						SourceEnd = Input { Value = 105, },
+						StretchStart = Input { Value = 5, },
+						StretchEnd = Input { Value = 100, },
+					},
+					ViewInfo = OperatorInfo { Pos = { -317.807, 31.1037 } },
+				},
 				acl_angle_media_out = MediaOut {
-					CtrlWZoom = false,
 					NameSet = true,
 					Inputs = {
 						Index = Input { Value = "0", },
