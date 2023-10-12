@@ -26,13 +26,14 @@
 			},
 			Outputs = {
 				MainOutput1 = InstanceOutput {
-					SourceOp = "acl_media_out",
+					SourceOp = "acl_render",
 					Source = "Output",
 				}
 			},
 			ViewInfo = GroupInfo { Pos = { 0, 0 } },
 			Tools = ordered() {
 				acl_right_bar = sRectangle {
+					CtrlWZoom = false,
 					NameSet = true,
 					Inputs = {
 						["Translate.X"] = Input {
@@ -64,23 +65,23 @@
 					},
 					ViewInfo = OperatorInfo { Pos = { -172, -17.4849 } },
 				},
-				acl_transform = sTransform {
+				acl_left_bar = sRectangle {
 					NameSet = true,
 					Inputs = {
-						XSize = Input {
-							Value = 0.929,
-							Expression = "acl_unit_scale_control.UniformScale",
+						["Translate.X"] = Input {
+							Value = -0.435,
+							Expression = "-acl_unit_scale_control.Length*0.5",
 						},
-						YSize = Input {
-							Value = 0.929,
-							Expression = "acl_unit_scale_control.UniformScale",
+						Width = Input {
+							Value = 0.0283,
+							Expression = "acl_unit_scale_control.Width",
 						},
-						Input = Input {
-							SourceOp = "acl_unit_scale_control",
-							Source = "Output",
+						Height = Input {
+							Value = 0.2285,
+							Expression = "math.max(acl_unit_scale_control.Height*0.5, acl_unit_scale_control.Width)",
 						},
 					},
-					ViewInfo = OperatorInfo { Pos = { 84.0002, 19.4847 } },
+					ViewInfo = OperatorInfo { Pos = { -169.333, 19.4848 } },
 				},
 				acl_unit_scale_control = sMerge {
 					NameSet = true,
@@ -103,23 +104,23 @@
 					ViewInfo = OperatorInfo { Pos = { -31.3333, 19.4848 } },
 					UserControls = ordered() { UniformScale = { INP_Integer = false, INP_Default = 1, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 1, LINKS_Name = "UniformScale", }, Length = { INP_Integer = false, INP_Default = 1, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 10, LINKS_Name = "Length", }, Height = { INP_Integer = false, INP_Default = 1, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 1, LINKS_Name = "Height", }, Width = { INP_Integer = false, INP_Default = 0.0439999997615814, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 0.200000002980232, LINKS_Name = "Width", } }
 				},
-				acl_left_bar = sRectangle {
+				acl_transform = sTransform {
 					NameSet = true,
 					Inputs = {
-						["Translate.X"] = Input {
-							Value = -0.435,
-							Expression = "-acl_unit_scale_control.Length*0.5",
+						XSize = Input {
+							Value = 0.929,
+							Expression = "acl_unit_scale_control.UniformScale",
 						},
-						Width = Input {
-							Value = 0.0283,
-							Expression = "acl_unit_scale_control.Width",
+						YSize = Input {
+							Value = 0.929,
+							Expression = "acl_unit_scale_control.UniformScale",
 						},
-						Height = Input {
-							Value = 0.2285,
-							Expression = "math.max(acl_unit_scale_control.Height*0.5, acl_unit_scale_control.Width)",
+						Input = Input {
+							SourceOp = "acl_unit_scale_control",
+							Source = "Output",
 						},
 					},
-					ViewInfo = OperatorInfo { Pos = { -169.333, 19.4848 } },
+					ViewInfo = OperatorInfo { Pos = { 84.0002, 19.4847 } },
 				},
 				acl_render = sRender {
 					NameSet = true,
@@ -134,18 +135,6 @@
 						},
 					},
 					ViewInfo = OperatorInfo { Pos = { 203.333, 20.0909 } },
-				},
-				acl_media_out = MediaOut {
-					CtrlWZoom = false,
-					NameSet = true,
-					Inputs = {
-						Index = Input { Value = "0", },
-						Input = Input {
-							SourceOp = "acl_render",
-							Source = "Output",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { 330.666, 19.803 } },
 				}
 			},
 		}

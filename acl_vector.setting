@@ -41,23 +41,19 @@
 			},
 			Outputs = {
 				MainOutput1 = InstanceOutput {
-					SourceOp = "acl_media_out",
+					SourceOp = "acl_arrow_render",
 					Source = "Output",
 				}
 			},
 			ViewInfo = GroupInfo { Pos = { 0, 0 } },
 			Tools = ordered() {
-				acl_top_head_translation = sTransform {
+				acl_top_head_geometry = sRectangle {
 					NameSet = true,
 					Inputs = {
-						XOffset = Input { Value = 0.044, },
-						YOffset = Input { Value = -0.126, },
-						Input = Input {
-							SourceOp = "acl_top_head_rotation",
-							Source = "Output",
-						},
+						Width = Input { Value = 0.05, },
+						Height = Input { Value = 0.252, },
 					},
-					ViewInfo = OperatorInfo { Pos = { 47.0925, -145.352 } },
+					ViewInfo = OperatorInfo { Pos = { -229.133, -145.848 } },
 				},
 				acl_top_head_rotation = sTransform {
 					NameSet = true,
@@ -80,21 +76,29 @@
 					},
 					ViewInfo = OperatorInfo { Pos = { -78.1821, -145.507 } },
 				},
-				acl_top_head_geometry = sRectangle {
+				acl_top_head_translation = sTransform {
 					NameSet = true,
 					Inputs = {
-						Width = Input { Value = 0.05, },
-						Height = Input { Value = 0.252, },
+						XOffset = Input { Value = 0.044, },
+						YOffset = Input { Value = -0.126, },
+						Input = Input {
+							SourceOp = "acl_top_head_rotation",
+							Source = "Output",
+						},
 					},
-					ViewInfo = OperatorInfo { Pos = { -229.133, -145.848 } },
+					ViewInfo = OperatorInfo { Pos = { 47.0925, -145.352 } },
 				},
-				acl_body_geometry = sRectangle {
+				acl_bottom_head_translation = sTransform {
 					NameSet = true,
 					Inputs = {
-						JoinStyle = Input { Value = 0, },
-						Height = Input { Value = 0.039, },
+						XOffset = Input { Value = -0.0061489869477, },
+						YOffset = Input { Value = -0.1264728722175, },
+						Input = Input {
+							SourceOp = "acl_bottom_head_rotation",
+							Source = "Output",
+						},
 					},
-					ViewInfo = OperatorInfo { Pos = { 94.5311, -248.878 } },
+					ViewInfo = OperatorInfo { Pos = { 47.0925, -105.352 } },
 				},
 				acl_bottom_head_rotation = sTransform {
 					NameSet = true,
@@ -117,18 +121,6 @@
 					},
 					ViewInfo = OperatorInfo { Pos = { -81.0205, -104.223 } },
 				},
-				acl_bottom_head_translation = sTransform {
-					NameSet = true,
-					Inputs = {
-						XOffset = Input { Value = -0.0061489869477, },
-						YOffset = Input { Value = -0.1264728722175, },
-						Input = Input {
-							SourceOp = "acl_bottom_head_rotation",
-							Source = "Output",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { 47.0925, -105.352 } },
-				},
 				acl_bottom_head_geometry = sRectangle {
 					NameSet = true,
 					Inputs = {
@@ -136,6 +128,15 @@
 						Height = Input { Value = 0.252, },
 					},
 					ViewInfo = OperatorInfo { Pos = { -230.466, -105.848 } },
+				},
+				acl_body_geometry = sRectangle {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						JoinStyle = Input { Value = 0, },
+						Height = Input { Value = 0.039, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 94.5311, -248.878 } },
 				},
 				acl_head_merge = sMerge {
 					NameSet = true,
@@ -174,18 +175,6 @@
 					},
 					ViewInfo = OperatorInfo { Pos = { 312.087, -248.719 } },
 				},
-				acl_local_head_transform = sTransform {
-					NameSet = true,
-					Inputs = {
-						XOffset = Input { Value = -0.2467457, },
-						YOffset = Input { Value = 0.00051758674, },
-						Input = Input {
-							SourceOp = "acl_head_merge",
-							Source = "Output",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { 317.327, -145.413 } },
-				},
 				acl_debug_rectangle = sRectangle {
 					NameSet = true,
 					Inputs = {
@@ -197,74 +186,17 @@
 					},
 					ViewInfo = OperatorInfo { Pos = { 312.087, -319.677 } },
 				},
-				DebugAlignment = Underlay {
-					NameSet = true,
-					ViewInfo = UnderlayInfo {
-						Pos = { 312.087, -337.739 },
-						Size = { 172, 138.717 }
-					},
-					Colors = { TileColor = { R = 0.92156862745098, G = 0.431372549019608, B = 0 }, }
-				},
-				ArrowHead = Underlay {
-					NameSet = true,
-					ViewInfo = UnderlayInfo {
-						Pos = { 39.7952, -182.87 },
-						Size = { 713.872, 130.907 }
-					},
-					Colors = { TileColor = { R = 0.372549019607843, G = 0.6, B = 0.125490196078431 }, }
-				},
-				acl_arrow_internals = sMerge {
+				acl_local_head_transform = sTransform {
 					NameSet = true,
 					Inputs = {
-						Input1 = Input {
-							SourceOp = "acl_main_arrow_transformation",
-							Source = "Output",
-						},
-						VectorLength = Input {
-							Value = 0.39,
-							Expression = "acl_arrow_control.Length",
-						}
-					},
-					ViewInfo = OperatorInfo { Pos = { 476.553, 15.8343 } },
-					UserControls = ordered() { VectorLength = { INP_MaxAllowed = 1000000, INP_Integer = false, INP_MinAllowed = -1000000, LINKID_DataType = "Number", INPID_InputControl = "SliderControl", INP_MinScale = 0, INP_MaxScale = 1, LINKS_Name = "VectorLength", } }
-				},
-				acl_media_out = MediaOut {
-					CtrlWZoom = false,
-					NameSet = true,
-					Inputs = {
-						Index = Input { Value = "0", },
+						XOffset = Input { Value = -0.2467457, },
+						YOffset = Input { Value = 0.00051758674, },
 						Input = Input {
-							SourceOp = "acl_arrow_render",
+							SourceOp = "acl_head_merge",
 							Source = "Output",
 						},
 					},
-					ViewInfo = OperatorInfo { Pos = { 21.0862, 15.1132 } },
-				},
-				acl_arrow_control = sMerge {
-					NameSet = true,
-					Inputs = {
-						Input1 = Input {
-							SourceOp = "acl_arrow_internals",
-							Source = "Output",
-						},
-						Offset = Input { Value = { 0.25, 0 }, },
-					},
-					ViewInfo = OperatorInfo { Pos = { 326.737, 15.7794 } },
-					UserControls = ordered() { Angle = { LINKS_Name = "Angle", INPID_PreviewControl = "AngleControl", LINKID_DataType = "Number", INPID_InputControl = "ScrewControl", INP_MinScale = -180, INP_Integer = false, INP_MaxScale = 180, INP_Default = 0, }, Length = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 10, INP_Default = 0.5, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "Length", }, UniformScale = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 2, INP_Default = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "UniformScale", }, Offset = { INP_DefaultX = 0, INPID_PreviewControl = "CrosshairControl", INP_DefaultY = 0, LINKID_DataType = "Point", INPID_InputControl = "OffsetControl", CHC_Style = "NormalCross", LINKS_Name = "Offset", }, HeadLength = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 2, INP_Default = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "HeadLength", }, HeadWidth = { INP_Integer = false, INP_Default = 1, INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 2, LINKS_Name = "HeadWidth", }, BodyWidth = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 2, INP_Default = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "BodyWidth", } }
-				},
-				acl_arrow_render = sRender {
-					NameSet = true,
-					Inputs = {
-						Width = Input { Value = 1920, },
-						Height = Input { Value = 1080, },
-						UseFrameFormatSettings = Input { Value = 1, },
-						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
-						Input = Input {
-							SourceOp = "acl_arrow_control",
-							Source = "Output",
-						},
-					},
-					ViewInfo = OperatorInfo { Pos = { 181.478, 14.5335 } },
+					ViewInfo = OperatorInfo { Pos = { 317.327, -145.413 } },
 				},
 				acl_arrow_head_transform = sTransform {
 					NameSet = true,
@@ -304,7 +236,37 @@
 						}
 					},
 					ViewInfo = OperatorInfo { Pos = { 486.155, -248.418 } },
-					UserControls = ordered() { A = { LINKS_Name = "A", LINKID_DataType = "Point", INPID_InputControl = "OffsetControl", }, B = { LINKS_Name = "B", LINKID_DataType = "Point", INPID_InputControl = "OffsetControl", }, AB = { LINKS_Name = "AB", LINKID_DataType = "Point", INPID_InputControl = "OffsetControl", } }
+					UserControls = ordered() { A = { INPID_InputControl = "OffsetControl", LINKID_DataType = "Point", LINKS_Name = "A", }, B = { INPID_InputControl = "OffsetControl", LINKID_DataType = "Point", LINKS_Name = "B", }, AB = { INPID_InputControl = "OffsetControl", LINKID_DataType = "Point", LINKS_Name = "AB", } }
+				},
+				ArrowHead = Underlay {
+					NameSet = true,
+					ViewInfo = UnderlayInfo {
+						Pos = { 39.7952, -182.87 },
+						Size = { 713.872, 130.907 }
+					},
+					Colors = { TileColor = { R = 0.372549019607843, G = 0.6, B = 0.125490196078431 }, }
+				},
+				DebugAlignment = Underlay {
+					NameSet = true,
+					ViewInfo = UnderlayInfo {
+						Pos = { 312.087, -337.739 },
+						Size = { 172, 138.717 }
+					},
+					Colors = { TileColor = { R = 0.92156862745098, G = 0.431372549019608, B = 0 }, }
+				},
+				acl_merge = sMerge {
+					NameSet = true,
+					Inputs = {
+						Input1 = Input {
+							SourceOp = "acl_arrow_body_transform",
+							Source = "Output",
+						},
+						Input2 = Input {
+							SourceOp = "acl_arrow_head_transform",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 618.86, -145.743 } },
 				},
 				acl_main_arrow_transformation = sTransform {
 					NameSet = true,
@@ -328,19 +290,46 @@
 					},
 					ViewInfo = OperatorInfo { Pos = { 619.436, -88.3165 } },
 				},
-				acl_merge = sMerge {
+				acl_arrow_render = sRender {
 					NameSet = true,
 					Inputs = {
-						Input1 = Input {
-							SourceOp = "acl_arrow_body_transform",
-							Source = "Output",
-						},
-						Input2 = Input {
-							SourceOp = "acl_arrow_head_transform",
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Input = Input {
+							SourceOp = "acl_arrow_control",
 							Source = "Output",
 						},
 					},
-					ViewInfo = OperatorInfo { Pos = { 618.86, -145.743 } },
+					ViewInfo = OperatorInfo { Pos = { 181.478, 14.5335 } },
+				},
+				acl_arrow_internals = sMerge {
+					NameSet = true,
+					Inputs = {
+						Input1 = Input {
+							SourceOp = "acl_main_arrow_transformation",
+							Source = "Output",
+						},
+						VectorLength = Input {
+							Value = 0.39,
+							Expression = "acl_arrow_control.Length",
+						}
+					},
+					ViewInfo = OperatorInfo { Pos = { 476.553, 15.8343 } },
+					UserControls = ordered() { VectorLength = { INP_MaxAllowed = 1000000, INP_Integer = false, INP_MinAllowed = -1000000, LINKID_DataType = "Number", INPID_InputControl = "SliderControl", INP_MinScale = 0, INP_MaxScale = 1, LINKS_Name = "VectorLength", } }
+				},
+				acl_arrow_control = sMerge {
+					NameSet = true,
+					Inputs = {
+						Input1 = Input {
+							SourceOp = "acl_arrow_internals",
+							Source = "Output",
+						},
+						Offset = Input { Value = { 0.25, 0 }, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 326.737, 15.7794 } },
+					UserControls = ordered() { Angle = { INP_Default = 0, INPID_PreviewControl = "AngleControl", INPID_InputControl = "ScrewControl", LINKID_DataType = "Number", INP_Integer = false, INP_MinScale = -180, INP_MaxScale = 180, LINKS_Name = "Angle", }, Length = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 10, INP_Default = 0.5, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "Length", }, UniformScale = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 2, INP_Default = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "UniformScale", }, Offset = { INP_DefaultX = 0, INPID_PreviewControl = "CrosshairControl", INP_DefaultY = 0, LINKID_DataType = "Point", INPID_InputControl = "OffsetControl", CHC_Style = "NormalCross", LINKS_Name = "Offset", }, HeadLength = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 2, INP_Default = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "HeadLength", }, HeadWidth = { INP_Integer = false, LINKS_Name = "HeadWidth", INPID_InputControl = "SliderControl", INP_MinScale = 0, LINKID_DataType = "Number", INP_MaxScale = 2, INP_Default = 1, }, BodyWidth = { INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "SliderControl", INP_MaxScale = 2, INP_Default = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", LINKS_Name = "BodyWidth", } }
 				}
 			},
 		}

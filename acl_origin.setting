@@ -1,0 +1,146 @@
+{
+	Tools = ordered() {
+		acl_origin = MacroOperator {
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "acl_origin_kfs",
+					Source = "Result",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				horz_rect_acl_origin = sRectangle {
+					NameSet = true,
+					Inputs = {
+						Width = Input { Value = 0.001, },
+						Height = Input { Value = 0.001, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 264.667, 360.091 } },
+				},
+				acl_origin_dub_horz = sDuplicate {
+					NameSet = true,
+					Inputs = {
+						Copies = Input {
+							SourceOp = "acl_origin_dub_horzCopies",
+							Source = "Value",
+						},
+						XOffset = Input { Value = 0.002, },
+						Input = Input {
+							SourceOp = "horz_rect_acl_origin",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 398, 362.515 } },
+				},
+				acl_origin_dub_horzCopies = BezierSpline {
+					SplineColor = { Red = 38, Green = 236, Blue = 71 },
+					CtrlWZoom = false,
+					KeyFrames = {
+						[0] = { 0, RH = { 1.66666666666667, 10.6666666666667 }, Flags = { Linear = true } },
+						[5] = { 32, LH = { 3.33333333333333, 21.3333333333333 }, RH = { 11.6666666666667, 32 }, Flags = { Linear = true } },
+						[25] = { 32, LH = { 18.3333333333333, 32 }, RH = { 26.6666666666667, 21.3333333333333 }, Flags = { Linear = true } },
+						[30] = { 0, LH = { 28.3333333333333, 10.6666666666667 }, Flags = { Linear = true } }
+					}
+				},
+				acl_origin_vert_dub = sDuplicate {
+					NameSet = true,
+					Inputs = {
+						Copies = Input {
+							SourceOp = "acl_origin_vert_dubCopies",
+							Source = "Value",
+						},
+						YOffset = Input { Value = 0.002, },
+						Input = Input {
+							SourceOp = "vert_rect_acl_origin",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 394.001, 400.363 } },
+				},
+				acl_origin_vert_dubCopies = BezierSpline {
+					SplineColor = { Red = 38, Green = 236, Blue = 71 },
+					CtrlWZoom = false,
+					KeyFrames = {
+						[0] = { 0, RH = { 1.66666666666667, 10.6666666666667 }, Flags = { Linear = true } },
+						[5] = { 32, LH = { 3.33333333333333, 21.3333333333333 }, RH = { 11.6666666666667, 32 }, Flags = { Linear = true } },
+						[25] = { 32, LH = { 18.3333333333333, 32 }, RH = { 26.6666666666667, 21.3333333333333 }, Flags = { Linear = true } },
+						[30] = { 0, LH = { 28.3333333333333, 10.6666666666667 }, Flags = { Linear = true } }
+					}
+				},
+				vert_rect_acl_origin = sRectangle {
+					NameSet = true,
+					Inputs = {
+						Width = Input { Value = 0.001, },
+						Height = Input { Value = 0.001, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 259.333, 401.302 } },
+				},
+				acl_origin_render = sRender {
+					NameSet = true,
+					Inputs = {
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Input = Input {
+							SourceOp = "acl_origin_merge_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 451.334, 323.727 } },
+				},
+				acl_origin_kfs = KeyStretcher {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Keyframes = Input {
+							SourceOp = "acl_origin_render",
+							Source = "Output",
+						},
+						SourceEnd = Input { Value = 30, },
+						StretchStart = Input { Value = 5, },
+						StretchEnd = Input { Value = 25, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 452.131, 258.857 } },
+				},
+				horz_transform_acl_origin = sTransform {
+					NameSet = true,
+					Inputs = {
+						XOffset = Input { Value = -0.0321156692747, },
+						Input = Input {
+							SourceOp = "acl_origin_dub_horz",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 499.333, 361.302 } },
+				},
+				vert_transform_acl_origin = sTransform {
+					NameSet = true,
+					Inputs = {
+						YOffset = Input { Value = -0.0319275787061, },
+						Input = Input {
+							SourceOp = "acl_origin_vert_dub",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 515.333, 400.09 } },
+				},
+				acl_origin_merge_1 = sMerge {
+					NameSet = true,
+					Inputs = {
+						Input1 = Input {
+							SourceOp = "horz_transform_acl_origin",
+							Source = "Output",
+						},
+						Input2 = Input {
+							SourceOp = "vert_transform_acl_origin",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 668.667, 395.515 } },
+				}
+			},
+		}
+	},
+	ActiveTool = "acl_origin"
+}
